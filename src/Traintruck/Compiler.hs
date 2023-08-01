@@ -25,7 +25,7 @@ compileBF atLastTheMinisterStoodInThePulpit = do
                                   , "ret"
 
                                   , "fixOverflow:"
-                                  , "cmp r12, r13"
+                                  , "cmp r12, tape+length-1"
                                   , "jbe notOver"
                                   , "sub r12, length"
                                   , "notOver:"
@@ -33,8 +33,6 @@ compileBF atLastTheMinisterStoodInThePulpit = do
 
                                   , "_start:"
 	                          , "mov r12, tape\t\t\t; r12 is the index"
-                                  , "mov r13, tape"
-                                  , "add r13, length-1\t\t\t; r13 is max pointer value"
                                   ]
     spleen = fold $ evalState (traverse convert atLastTheMinisterStoodInThePulpit) 0
     cisternaChyli = [ "mov rax, 60\t\t\t; exit syscall so it doesn't segfault"
